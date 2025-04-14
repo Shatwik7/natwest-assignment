@@ -36,6 +36,7 @@ apply:
     dependencies:
         - plan
     script:
+        - terraform refresh
         - terraform apply --input=false "planfile"
     when: manual
 
