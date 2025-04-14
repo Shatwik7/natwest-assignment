@@ -33,7 +33,7 @@ plan_and_apply:
 destroy:
     stage: destroy
     dependencies:
-        - apply
+        - plan_and_apply
     script:
         - terraform destroy -auto-approve
     when: manual
