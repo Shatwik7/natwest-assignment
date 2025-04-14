@@ -13,7 +13,8 @@ before_script:
 
 stages:
     - validate
-    - plan_and_apply
+    - plan
+    - apply
     - destroy
 
 validate:
@@ -21,19 +22,28 @@ validate:
     script:
         - terraform validate
 
-plan_and_apply:
-    stage: plan_and_apply
+plan:
+    stage: plan
     dependencies:
         - validate
     script:
-        - terraform plan
-        - terraform apply -auto-approve
+        - terraform plan -out="planfile"
+    artifacts:
+        paths:
+            - planfile
+apply:
+    stage: apply
+    dependencies:
+        - plan
+    script:
+        - terraform refresh
+        - terraform apply --input=false "planfile"
     when: manual
 
 destroy:
     stage: destroy
     dependencies:
-        - plan_and_apply
+        - apply
     script:
         - terraform destroy -auto-approve
     when: manual

@@ -27,8 +27,6 @@ resource "aws_s3_bucket_website_configuration" "web_bucket_website" {
     key = "index.html"
   }
 }
-
-# Make the bucket content publicly readable
 resource "aws_s3_bucket_policy" "public_read" {
   bucket = aws_s3_bucket.web_bucket.id
 
@@ -44,6 +42,8 @@ resource "aws_s3_bucket_policy" "public_read" {
       }
     ]
   })
+
+  depends_on = [aws_s3_bucket_public_access_block.disable_block]
 }
 
 resource "aws_s3_object" "index_html" {
