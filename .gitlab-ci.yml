@@ -1,11 +1,10 @@
 image:
-    name: registry.gitlab.com/gitlab-org/gitlab-build-image:terraform
-    entrypoint:
-        - '/usr/bin/env'
+  name: hashicorp/terraform:1.7.5
+  entrypoint: ["/bin/sh", "-c"]
 
 variables:
     AWS_ACCESS_KEY_ID: ${MY_AWS_ACCESS_KEY}
-    AWS_SECRET_ACCESS_KEY: ${MY_SECRET_KEY}
+    AWS_SECRET_ACCESS_KEY: ${MY_AWS_SECRET_ACCESS_KEY}
     AWS_DEFAULT_REGION: "us-east-1"
 
 before_script:
