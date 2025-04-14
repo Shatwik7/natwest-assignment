@@ -36,8 +36,7 @@ apply:
     dependencies:
         - plan
     script:
-        - terraform refresh
-        - terraform apply --input=false "planfile"
+        - terraform apply -refresh=true -lock=true -auto-approve
     when: manual
 
 destroy:
